@@ -30,11 +30,8 @@ exports.insertnew = async (req, res) => {
     user.money -=  parseFloat(debit);
     const updatedUser = await user.save();
 
-    return res.status(200).json({
-      success: true,
-      message: 'Data inserted in transactions array',
-      data: updatedUser,
-    });
+    res.render("insertnew");
+    return res.status(200);
   } 
   catch (error) {
     console.error(error);
@@ -48,6 +45,8 @@ exports.insertnew = async (req, res) => {
 
 
 exports.profile = async (req, res) => {
+  console.log("profile");
+  console.log(req.body);
   const token = req.cookies.MoneyMaster;
   const decodedToken = jwt.verify(token, "process.env.JWT_SECRET");
   const userId = decodedToken.id;
@@ -60,13 +59,10 @@ exports.profile = async (req, res) => {
         message: 'User not found',
       });
     }
-  
-
-    return res.status(200).json({
-      success: true,
-      message: 'Data inserted in transactions array',
-      data: user,
-    });
+    console.log("in profile");
+    console.log(user);
+    res.render('profile');
+    return res.status(200);
   } 
   catch (error) {
     console.error(error);
@@ -92,12 +88,8 @@ exports.dashboard = async (req, res) => {
         message: 'User not found',
       });
     }
-    
-    return res.status(200).json({
-      success: true,
-      message: 'Transactions',
-      data: user,
-    });
+    res.render('dashboard');
+    return res.status(200);
   } 
   catch (error) {
     console.error(error);
@@ -125,8 +117,7 @@ exports.filterTransaction = async (req, res) => {
     // filter the data->>
     const filteredTransactions = user.transactions.filter(transaction => transaction.trimed === type);
     
-
-    
+    // res.redirect("/dashboard/filterTransaction");
     return res.status(200).json({
       success: true,
       message: 'Filtered transactions',

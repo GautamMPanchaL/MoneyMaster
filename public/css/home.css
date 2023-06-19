@@ -1,0 +1,169 @@
+body {
+    /* margin-top: 0%;
+    margin-left: 0%;
+    margin-right: 0%; */
+    margin: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 20px 0 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #EAF6F6;
+
+}
+
+h1 {
+    color: #000000;
+    width: 70%;
+    margin: .5% auto .5% auto;
+    align-content: center;
+    text-align: center;
+    font-family: 'Sacramento', cursive;
+    font-size: 4rem;
+    line-height: 1.5;
+    font-weight: 900;
+}
+
+h2 {
+    color: #000000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    line-height: 2;
+    font-weight: bold;
+}
+
+h3 {
+    color: #000000;
+    line-height: 2;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+hr {
+    color: black;
+    width: 10%;
+    border-style: none;
+    border-top-style: dotted;
+    border-width: 7px;
+    margin: 100px auto;
+}
+
+div {
+    text-align: center;
+}
+
+p {
+    font-size: 1rem;
+    color: #8f8f8f;
+    font-weight: 500;
+}
+
+#title {
+    background-color: #ff4c68;
+}
+
+.container-fluid {
+    padding-top: 3%;
+    padding-bottom: 1%;
+}
+
+.dog-p {
+    position: absolute;
+    transform: rotate(25deg);
+}
+
+@media (max-width : 1000px) {
+    .dog-p {
+        position: static;
+        transform: rotate(0deg);
+    }
+}
+
+#features {
+    padding: 5% 10% 10% 10%;
+    background-color: white;
+    position: relative;
+}
+
+.ficon {
+    color: rgb(40, 169, 169);
+    margin-bottom: 1rem;
+}
+
+.ficon:hover {
+    color: #ff4c68;
+}
+
+#testimonials {
+    text-align: center;
+    background-color: rgb(40, 169, 169);
+    color: #fff;
+}
+
+.carousel-inner {
+    padding: 7% 15%;
+    text-align: center;
+}
+
+.test-image {
+    width: 20%;
+    border-radius: 100%;
+    margin-right: 5%;
+}
+
+#press {
+    background-color: rgb(40, 169, 169);
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.press-img {
+    width: 15%;
+    margin: 2%;
+}
+
+#pricing {
+    padding: 7% 15%;
+}
+
+.card-footer {
+    background-color: rgb(255, 255, 255);
+}
+
+.price-col {
+    padding: 3% 2%;
+}
+
+.card-body {
+    height: 17rem;
+}
+
+#cta {
+    padding: 7% 10%;
+    background-color: #ff4c68;
+}
+
+.fbtn1 {
+    margin-right: 1%;
+}
+
+.fbtn2 {
+    margin-left: 1%;
+}
+
+#footer {
+    margin: 7% 3% 7%;
+}
+
+.foicon {
+    margin-right: 1%;
+    margin-left: 1%;
+    margin-bottom: 1rem;
+}

@@ -6,10 +6,14 @@ const User = require("../models/userModel");
 const express = require("express");
 const cookieParser = require('cookie-parser');
 
+// const popup = require('popups');
+// const alert = require('alert');
+// const notifier = require('node-notifier');
 
 // signup handler
 exports.signup = async (req, res)=> {
     try{
+        // console.log(req.body);
         const { username, email, password} = req.body;
         // check for existing user
         const existingUser = await User.findOne({email});
@@ -40,20 +44,35 @@ exports.signup = async (req, res)=> {
         let user = await User.create({
             username,email,password:hashedPassword
         });
-        // console.log(":BY");
-        
-        return res.status(200).json({
-            success: true,
-            message: "User Created",
-            data: user
-        });
+        // popup.alert({
+        //     content: 'USER CREATED SUCCESSFULLY'
+        // });
+        // notifier.notify("USER CREATED SUCCESSFULLY");
+        // alert("user created successfully");
+        // window.alert("USER CREATED SUCCESSFULLY");
+        // alert("USER CREATED SUCCESSFULLY");
+        const success  = "success";
+        res.cookie("signup",success);
+        res.redirect("/login");
+        return res.status(200);
+        // res.json({
+        //     status : 200,
+        //     success: true,
+        //     message: "User Created",
+        //     data: user
+        // });
+        // .json({
+        //     success: true,
+        //     message: "User Created",
+        //     data: user
+        // })
     }
     catch(err){
         
         return res.status(500).json({
-                success:false,
-                message:"Something went wrong....."
-            });
+            success:false,
+            message:"Something went wrong....."
+        });
     }
 }
 
@@ -97,12 +116,8 @@ exports.login = async (req,res) => {
                 expires: new Date(Date.now() + 24*60*60*1000),
                 httpOnly: true
             }
-            res.cookie("MoneyMaster", token, options).status(200).json({
-                success:true,
-                token,
-                user,
-                message:"User login successful" 
-            });
+            res.cookie("MoneyMaster", token, options);
+            res.redirect("/user/profile");
         }
         else{
             return res.status(403).json({

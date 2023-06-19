@@ -1,15 +1,33 @@
 const express = require("express");
-
 const router = express.Router();
+
+const cookieParser = require("cookie-parser");
+const app = express();
+app.use(cookieParser());
 
 const {login , signup} = require("../controllers/auth");
 const {insertnew, profile, filterTransaction, dashboard} = require("../controllers/insertnew");
 const {isAuthentic} = require("../middlewares/auht");
+
+router.get("/",(req,res)=>{
+    res.render('index');
+});
+
+router.get("/login",(req,res)=>{
+    // console.log(req.cookies);
+    const str = req.cookies.signup;
+    res.clearCookie("signup");
+    // console.log(str);
+    res.render('login',{opt : str});
+});
+
 router.post("/login", login);
 
-router.post("/signup", signup);
+router.get("/signup",(req,res)=>{
+    res.render('signup');
+});
 
-
+router.post("/signup",signup);
 
 // profile page route
 router.get("/user/profile",isAuthentic, profile);
@@ -18,9 +36,15 @@ router.get("/user/profile",isAuthentic, profile);
 router.get("/dashboard", isAuthentic, dashboard);
 
 // to insert new transcation 
-router.post("/dashboard/insertnew", insertnew);
+
+router.get("/dashboard/insertnew",isAuthentic, insertnew);
+
+router.post("/dashboard/insertnew",isAuthentic, insertnew);
 
 // to view filtered transcation data
+
+router.get("/dashboard/filterTransaction",isAuthentic,  filterTransaction);
+
 router.post("/dashboard/filterTransaction",isAuthentic,  filterTransaction);
 
 module.exports = router;
