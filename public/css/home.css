@@ -1,7 +1,4 @@
-body {
-    /* margin-top: 0%;
-    margin-left: 0%;
-    margin-right: 0%; */
+/* body {
     margin: 0;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -17,7 +14,7 @@ a {
 a:hover {
     color: #EAF6F6;
 
-}
+} */
 
 h1 {
     color: #000000;
@@ -67,6 +64,7 @@ p {
 
 #title {
     background-color: #ff4c68;
+    scroll-behavior: smooth;
 }
 
 .container-fluid {
@@ -74,7 +72,7 @@ p {
     padding-bottom: 1%;
 }
 
-.dog-p {
+/* .dog-p {
     position: absolute;
     transform: rotate(25deg);
 }
@@ -84,12 +82,13 @@ p {
         position: static;
         transform: rotate(0deg);
     }
-}
+} */
 
 #features {
     padding: 5% 10% 10% 10%;
     background-color: white;
     position: relative;
+    scroll-behavior: smooth;
 }
 
 .ficon {
@@ -102,68 +101,60 @@ p {
 }
 
 #testimonials {
-    text-align: center;
-    background-color: rgb(40, 169, 169);
-    color: #fff;
+    /* text-align: center; */
+    padding-top: 3%;
+    background-color: #07ad47;
+    color: #0a0a0a;
+    scroll-behavior: smooth;
 }
 
-.carousel-inner {
-    padding: 7% 15%;
-    text-align: center;
+.myslick{
+    /* margin: 5%; */
+    margin-left: 2%;
+    margin-right: 2%;
+    /* padding-bottom: 3%; */
+    height: 40%;
+    padding-top: 5%;
+    color: rgb(0, 0, 0);
+    /* margin-top: 5%; */
+    margin-bottom: 5%;
 }
 
-.test-image {
-    width: 20%;
-    border-radius: 100%;
-    margin-right: 5%;
-}
-
-#press {
-    background-color: rgb(40, 169, 169);
-    text-align: center;
-    padding-bottom: 2%;
-}
-
-.press-img {
-    width: 15%;
-    margin: 2%;
-}
-
-#pricing {
-    padding: 7% 15%;
-}
-
-.card-footer {
-    background-color: rgb(255, 255, 255);
-}
-
-.price-col {
-    padding: 3% 2%;
-}
-
-.card-body {
-    height: 17rem;
-}
-
-#cta {
-    padding: 7% 10%;
-    background-color: #ff4c68;
-}
-
-.fbtn1 {
-    margin-right: 1%;
-}
-
-.fbtn2 {
+.sli{
+    /* margin: 2%; */
+    height: 80%;
+    padding-top: 0.35%;
     margin-left: 1%;
-}
-
-#footer {
-    margin: 7% 3% 7%;
-}
-
-.foicon {
     margin-right: 1%;
-    margin-left: 1%;
-    margin-bottom: 1rem;
+    background-color: #ffffff;
+    border-radius: 3%;
+    text-align: center;
+}
+
+.sli:hover{
+    /* box-shadow:10px 10px 5px #000000; */
+    width: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 10);
+    text-align: center;
+    
+}
+
+.slitext{
+    color: #000000;
+    font-weight: 200;
+}
+
+.btitle{
+    /* text-align: left; */
+    /* width: 100%; */
+    font-weight: 700;
+    color: #000000;
+    position: absolute;
+    bottom : 0%;
+    /* right: 50%; */
+}
+
+#about{
+    text-align: center;
+    scroll-behavior: smooth;
 }

@@ -109,8 +109,8 @@
     margin-bottom: 1rem;
 }
 
-.ficon:hover {
-    color: #ff4c68;
+.fa-2xl:hover {
+    color: #078f27;
 }
 
 #footer {
@@ -118,12 +118,13 @@
     margin: 7% 3% 7%;
 }
 
-.foicon {
-    margin-right: 1%;
-    margin-left: 1%;
-    margin-bottom: 1rem;
+.fa-2xl {
+    text-align: center;
+    margin: 5%;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 
 
 
