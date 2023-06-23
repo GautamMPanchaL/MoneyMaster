@@ -12,7 +12,10 @@ exports.insertnew = async (req, res) => {
   const token = req.cookies.MoneyMaster;
   const decodedToken = jwt.verify(token, "process.env.JWT_SECRET");
   const userId = decodedToken.id;
-  const { date, credit, debit, description, type} = req.body;
+  console.log(req.body);
+  let { date, credit, debit, description, type} = req.body;
+  if(type === undefined)
+    type = "";
   const trimed = type.trim();
   try {
     // finding user
@@ -29,8 +32,9 @@ exports.insertnew = async (req, res) => {
     user.money += parseFloat(credit);
     user.money -=  parseFloat(debit);
     const updatedUser = await user.save();
-
-    res.render("insertnew");
+    let x = JSON.stringify(user);
+    console.log(x);
+    res.render("insertnew",{puser : x});
     return res.status(200);
   } 
   catch (error) {
@@ -61,7 +65,11 @@ exports.profile = async (req, res) => {
     }
     console.log("in profile");
     console.log(user);
-    res.render('profile');
+
+    let x = JSON.stringify(user);
+    console.log(x);
+
+    res.render('profile',{puser : x});
     return res.status(200);
   } 
   catch (error) {
@@ -88,7 +96,11 @@ exports.dashboard = async (req, res) => {
         message: 'User not found',
       });
     }
-    res.render('dashboard');
+
+    let x = JSON.stringify(user);
+    console.log(x);
+
+    res.render('dashboard',{puser : x});
     return res.status(200);
   } 
   catch (error) {
@@ -116,7 +128,10 @@ exports.filterTransaction = async (req, res) => {
     }
     // filter the data->>
     const filteredTransactions = user.transactions.filter(transaction => transaction.trimed === type);
-    
+
+    let x = JSON.stringify(user); 
+    console.log(x);
+
     // res.redirect("/dashboard/filterTransaction");
     return res.status(200).json({
       success: true,

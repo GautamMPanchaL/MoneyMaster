@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,7 +7,7 @@
 
     <!-- css-linking -->
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pstyle.css">
 
     <!-- fonts -->
 
@@ -39,11 +40,11 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-            
+
     <!-- icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" href="https://kit.fontawesome.com/b178273a0d.css" crossorigin="anonymous"> -->
     <!-- <script src="https://kit.fontawesome.com/b178273a0d.js" crossorigin="anonymous"></script> -->
 
@@ -55,8 +56,7 @@
 
 <body>
     <nav class="navbar-custom navbar sticky-top navbar-expand-lg">
-        <a class="navbar-brand" href="/"
-            style="font-family: 'Sacramento', cursive; padding-left: 1%;">Money Master</a>
+        <a class="navbar-brand" href="/" style="font-family: 'Sacramento', cursive; padding-left: 1%;">Money Master</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -64,28 +64,29 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto" style="margin-left: auto;">
                 <li class="nav-item item1">
-                    <a class="nav-link active item1" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active item1" aria-current="page" href="/user/profile">Profile</a>
                 </li>
                 <li class="nav-item item1">
-                    <a class="nav-link" href="/#features">Features</a>
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item item1">
-                    <a class="nav-link" href="/#about">About Us</a>
+                    <a class="nav-link" href="/dashboard/insertnew">Add Transactions</a>
                 </li>
                 <li class="nav-item item1">
-                    <a class="nav-link" href="/#footer">Contact Us</a>
+                    <a class="nav-link" href="/dashboard/filterTransaction">Filter Transactions</a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Log in
+                        Log Out
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right slideIn">
-                        <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <!-- <li><a class="dropdown-item" href="/signup">Sign Up</a></li> -->
+                        <p style="color: black;" id="pemail">
+                        </p>
+                        <li><a class="dropdown-item" href="/">Logout</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
-    
