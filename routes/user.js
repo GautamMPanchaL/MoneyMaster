@@ -6,7 +6,7 @@ const app = express();
 app.use(cookieParser());
 
 const {login , signup} = require("../controllers/auth");
-const {insertnew, profile, filterTransaction, dashboard} = require("../controllers/insertnew");
+const {insertnew, profile, filterTransaction, dashboard, newtransaction, filterTransactionpage} = require("../controllers/insertnew");
 const {isAuthentic} = require("../middlewares/auht");
 
 router.get("/",(req,res)=>{
@@ -37,7 +37,7 @@ router.get("/dashboard", isAuthentic, dashboard);
 
 // to insert new transcation 
 
-router.get("/dashboard/insertnew",isAuthentic, insertnew);
+router.get("/dashboard/insertnew",isAuthentic, newtransaction);
 
 router.post("/dashboard/insertnew",isAuthentic, insertnew);
 

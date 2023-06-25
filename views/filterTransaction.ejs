@@ -1,4 +1,62 @@
 <%-include("partials/pheader")-%>
     <link rel="stylesheet" href="/css/home.css">
     <h1>SHASHWAT KHARE filter</h1>
-    <%-include("partials/pfooter")-%>
+
+
+    <h1>Date Range Form</h1>
+    
+    <form action="/dashboard/filterTransaction" method="POST">
+        <label for="from-date">From:</label>
+        <input type="date" id="from-date" name="from" required  value="2023-01-01"><br><br>
+    
+        <label for="to-date">To:</label>
+        <input type="date" id="to-date" name="to" required value="<%= (new Date()).toISOString().split('T')[0] %>"><br><br>
+    
+        <label for="category">Category:</label>
+        <select id="category" name="type">
+            <option value="All">All</option>
+            <% uniqueOptionsArray.forEach(option=> { %>
+                <option value="<%= option %>">
+                    <%= option %>
+                </option>
+                <% }); %>
+        </select><br><br>
+
+    
+        <input type="submit" value="Submit">
+    </form>
+
+    <h1>Transactions</h1>
+    <div class="tran-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Transaction Type</th>
+                    <th>Credit Amount (in Rupees)</th>
+                    <th>Debit Amount (in Rupees)</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < transactions.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=transactions[i].date %>
+                        </td>
+                        <td>
+                            <%=transactions[i].trimed %>
+                        </td>
+                        <td>
+                            <%=transactions[i].credit %>
+                        </td>
+                        <td>
+                            <%=transactions[i].debit %>
+                        </td>
+                        <td>
+                            <%=transactions[i].description %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>

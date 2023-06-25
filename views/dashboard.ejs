@@ -1,4 +1,40 @@
 <%-include("partials/pheader")-%>
     <link rel="stylesheet" href="/css/home.css">
     <h1>SHASHWAT KHARE Dashboard</h1>
+    <h1>Transactions</h1>
+    <div class = "tran-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Transaction Type</th>
+                    <th>Credit Amount (in Rupees)</th>
+                    <th>Debit Amount (in Rupees)</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < transactions.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%=transactions[i].date %>
+                        </td>
+                        <td>
+                            <%=transactions[i].trimed %>
+                        </td>
+                        <td>
+                            <%=transactions[i].credit %>
+                        </td>
+                        <td>
+                            <%=transactions[i].debit %>
+                        </td>
+                        <td>
+                            <%=transactions[i].description %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+
     <%-include("partials/pfooter")-%>

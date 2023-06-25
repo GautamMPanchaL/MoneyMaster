@@ -1,4 +1,42 @@
 <%-include("partials/pheader")-%>
     <link rel="stylesheet" href="/css/home.css">
-    <h1>SHASHWAT KHARE InsertNew</h1>
-    <%-include("partials/pfooter")-%>
+
+    <h1>Add Transaction</h1>
+    <form action="/dashboard/insertnew" method="POST" onload="toggleAdditionalField()">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+        <label for="transaction-option">Transaction Type</label>
+        <select id="transaction-option" name="transaction_option" onchange="toggleAdditionalField()">
+            <option name="Food" selected>Food</option>
+            <option name="House Rent">House Rent</option>
+            <option name="Electricity Bill">Electricity Bill</option>
+            <option name="Vehicle">Vehicle</option>
+            <option name="Insurance">Insurance</option>
+            <option name="Entertainment">Entertainment</option>
+            <option name="Health and Wellness">Health and Wellness</option>
+            <option name="Other">Other</option>
+        </select><br><br>
+        <div id="additional-field" class="additional-field">
+            <label for="additional">Specify:</label>
+            <input type="text" id="additional" name="additional">
+        </div><br><br>
+    
+        <label for="credit-amount">Credit Amount (in Rupees):</label>
+        <input type="number" id="credit-amount" name="credit" step="0.01" value="0.00"><br><br>
+    
+        <label for="debit-amount">Debit Amount (in Rupees):</label>
+        <input type="number" id="debit-amount" name="debit" step="0.01" value="0.00"><br><br>
+    
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required><br><br>
+    
+        <!-- <label for="transaction-option">Transaction Option:</label> -->
+    
+    
+        <input type="submit" value="Submit">
+    </form>
+
+
+<%-include("partials/pfooter")-%>
+
+

@@ -13,10 +13,10 @@ exports.insertnew = async (req, res) => {
   const decodedToken = jwt.verify(token, "process.env.JWT_SECRET");
   const userId = decodedToken.id;
   console.log(req.body);
-  let { date, credit, debit, description, type} = req.body;
-  if(type === undefined)
-    type = "";
-  const trimed = type.trim();
+  let { date, credit, debit, description, transaction_option, additional} = req.body;
+  if(transaction_option === "Other")
+    transaction_option = additional;
+  const trimed = transaction_option.trim();
   try {
     // finding user
     const user = await User.findById(userId);
@@ -34,7 +34,7 @@ exports.insertnew = async (req, res) => {
     const updatedUser = await user.save();
     let x = JSON.stringify(user);
     console.log(x);
-    res.render("insertnew",{puser : x});
+    res.redirect("/dashboard");
     return res.status(200);
   } 
   catch (error) {
@@ -81,9 +81,7 @@ exports.profile = async (req, res) => {
   }
 };
 
-
 // route for edithing the existing transaction 
-
 exports.dashboard = async (req, res) => {
 
   const userId = req.user.id;
@@ -100,7 +98,7 @@ exports.dashboard = async (req, res) => {
     let x = JSON.stringify(user);
     console.log(x);
 
-    res.render('dashboard',{puser : x});
+   res.render('dashboard', { puser: user, transactions: user.transactions });
     return res.status(200);
   } 
   catch (error) {
@@ -116,28 +114,56 @@ exports.dashboard = async (req, res) => {
 exports.filterTransaction = async (req, res) => {
 
     const userId = req.user.id;
-    const {type} = req.body;
-  try {
-    // finding user
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found',
-      });
-    }
-    // filter the data->>
-    const filteredTransactions = user.transactions.filter(transaction => transaction.trimed === type);
+    try {
+      // finding user
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found',
+        });
+      }
+      let x = JSON.stringify(user); 
+      console.log(x);
+      if (req.body.hasOwnProperty('type')) {
+        const { type, from, to } = req.body;
 
-    let x = JSON.stringify(user); 
-    console.log(x);
+      // Parse the from and to dates
+      const startDate = new Date(from);
+      const endDate = new Date(to);
 
+      let filteredTransactions;
+      if (type === "All") {
+        filteredTransactions = user.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.date);
+          return transactionDate >= startDate && transactionDate <= endDate;
+        });
+      } else {
+        filteredTransactions = user.transactions.filter(transaction => {
+          const transactionDate = new Date(transaction.date);
+          return transaction.trimed === type &&
+            transactionDate >= startDate &&
+            transactionDate <= endDate;
+        });
+}
+const optionsArray = user.transactions.map(transaction => transaction.trimed);
+const uniqueOptionsArray = [...new Set(optionsArray)];
+
+res.render("filterTransaction", { puser: x, transactions: filteredTransactions, uniqueOptionsArray:uniqueOptionsArray});
+
+        return res.status(200);
+      }
+      
+    
     // res.redirect("/dashboard/filterTransaction");
-    return res.status(200).json({
-      success: true,
-      message: 'Filtered transactions',
-      data: filteredTransactions,
-    });
+    const optionsArray = user.transactions.map(transaction => transaction.trimed);
+    const uniqueOptionsArray = [...new Set(optionsArray)];
+    res.render("filterTransaction", {puser: x, transactions:user.transactions, uniqueOptionsArray: uniqueOptionsArray});
+    // return res.status(200).json({
+    //   success: true,
+    //   message: 'Filtered transactions',
+
+    // });
   } 
   catch (error) {
     console.error(error);
@@ -148,3 +174,37 @@ exports.filterTransaction = async (req, res) => {
   }
 };
 
+
+exports.newtransaction = async (req, res) => {
+
+  console.log("in new transaction");
+  console.log(req.body);
+  const token = req.cookies.MoneyMaster;
+  const decodedToken = jwt.verify(token, "process.env.JWT_SECRET");
+  const userId = decodedToken.id;
+  try {
+    // finding user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found',
+      });
+    }
+    console.log("on transaction page");
+    console.log(user);
+
+    let x = JSON.stringify(user);
+    console.log(x);
+   
+    res.render('insertnew',{puser : x});
+    return res.status(200);
+  }
+  catch(error){
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to fetch data',
+    });
+  }
+}
