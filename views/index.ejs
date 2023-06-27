@@ -114,32 +114,33 @@
             </div>
         </form> -->
 
-        <form method="post" action="/">
+        <form onsubmit="copyToGmail()">
             <div class="container">
                 <img style="margin: 5%;" src="https://blog.injixo.com/hubfs/How-to-boost-Employee-Engagement-01.png" alt="">
                 <div class="formgrou">
                     <div class="row g-2">
                         <div class="col-md">
                             <div class="form-floating mb-1" style="margin-top: 3%;">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                                <label for="name">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="subject">
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-1" style="margin-top: 3%;">
                                 <label for="phone">Phone Number</label>
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone number">
+                                <input type="text" class="form-control" id="phonenumber" name="phone" placeholder="phone number">
                             </div>
                         </div>
                     </div>
                     <div class="form-floating" style="margin-top: 3%;">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
-                            value="sanidhya@example.com">
+                        <!-- <label for="email">Email address</label> -->
+                        <!-- <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                            value="sanidhya@example.com"> -->
+                        <input type="hidden" id="to" name="to" value="gautampanchal977@gmail.com" required>
                     </div>
                     <div class="form-floating" style="margin-top: 3%;">
                         <label for="desc">What would you Like to Discuss</label>
-                        <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"
+                        <textarea class="form-control" placeholder="Leave a comment here" id="message" name="desc"
                             style="height: 100px"></textarea>
                     </div>
                     <button style="margin: 5%;" class="btn btn-primary" type="submit">Submit</button>

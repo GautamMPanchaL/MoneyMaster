@@ -16,6 +16,7 @@ exports.signup = async (req, res)=> {
         // console.log(req.body);
         const { username, email, password} = req.body;
         // check for existing user
+
         const existingUser = await User.findOne({email});
         
         if(existingUser){
@@ -25,7 +26,7 @@ exports.signup = async (req, res)=> {
             });
         }
         
-        // password hashing 
+        // password hashing
         let hashedPassword ;
 
         try {
@@ -97,6 +98,7 @@ exports.login = async (req,res) => {
                 message: "user does not exist"
             })
         }
+
         // creating a payload
         let payload = {
             email: user.email,
@@ -136,3 +138,10 @@ exports.login = async (req,res) => {
     }
 }
 
+
+module.exports.logout = (req, res) => {
+  res
+    .clearCookie("MoneyMaster")
+    .status(204)
+    .json({ message: "Logged out successfully" });
+};
