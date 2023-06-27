@@ -1,13 +1,12 @@
 <%-include("partials/pheader")-%>
     <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/insert.css">
 
     <h1>Add Transaction</h1>
-    <form action="/dashboard/insertnew" method="POST">
-        <label class="lform" for="date">Date:</label>
-        <input class="rform" type="date" id="date" name="date" required><br><br>
-        <label class="lform" for="transaction-option">Transaction Type</label>
-        <select class="rform" id="transaction-option" name="transaction_option">
+    <form action="/dashboard/insertnew" method="POST" onload="toggleAdditionalField()">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+        <label for="transaction-option">Transaction Type</label>
+        <select id="transaction-option" name="transaction_option" onchange="toggleAdditionalField()">
             <option name="Food" selected>Food</option>
             <option name="House Rent">House Rent</option>
             <option name="Electricity Bill">Electricity Bill</option>
@@ -17,62 +16,27 @@
             <option name="Health and Wellness">Health and Wellness</option>
             <option name="Other">Other</option>
         </select><br><br>
-        <div id="additional-field" class="additional-field" hidden>
-            <label class="lform" for="additional">Specify:</label>
-            <input class="rform" type="text" id="additional" name="additional">
-        </div>
-        <label class="lform" for="transaction-type">Credit or Debit</label>
-        <select class="rform" id="transaction-type" name="transaction_type" required>
-            <option name="Credit" selected>Credit</option>
-            <option name="Debit">Debit</option>
-        </select>
-        <div id="ctype">
-            <label class="lform" for="credit-amount">Credit Amount (in Rupees):</label>
-            <input class="rform" type="number" id="credit-amount" name="credit"  value="0.00"><br><br>
-        </div>
-        <div id="dtype" hidden>
-            <label class="lform" for="debit-amount">Debit Amount (in Rupees):</label>
-            <input class="rform" type="number" id="debit-amount" name="debit" value="0.00"><br><br>
-        </div>
-        <br>
-        <label class="lform" for="description">Description:</label>
-        <input class="rform" type="text" id="description" name="description" required autofill="off"><br><br>
+        <div id="additional-field" class="additional-field">
+            <label for="additional">Specify:</label>
+            <input type="text" id="additional" name="additional">
+        </div><br><br>
+    
+        <label for="credit-amount">Credit Amount (in Rupees):</label>
+        <input type="number" id="credit-amount" name="credit" step="0.01" value="0.00"><br><br>
+    
+        <label for="debit-amount">Debit Amount (in Rupees):</label>
+        <input type="number" id="debit-amount" name="debit" step="0.01" value="0.00"><br><br>
+    
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required><br><br>
     
         <!-- <label for="transaction-option">Transaction Option:</label> -->
     
     
-        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="submit" value="Submit">
     </form>
 
-<script>
-    $(function () {
-            $("#transaction-option").change(function()
-            {
-                let topt = $("#transaction-option").val();
-                console.log("happy");
-                console.log(topt);
-                if (topt === "Other") {
-                    $("#additional-field").removeAttr("hidden");
-                }
-                if (topt != "Other") {
-                    $("#additional-field").attr("hidden",true);
-                }
-            });
-            $("#transaction-type").change(function(){
-                let typeopt = $("#transaction-type").val();
-                console.log(typeopt);
-                if (typeopt === "Credit") {
-                    $("#ctype").attr("hidden",false);
-                    $("#dtype").attr("hidden", true);
-                }
-                if (typeopt === "Debit") {
-                    $("#ctype").attr("hidden", true);
-                    $("#dtype").attr("hidden", false);
-                }
-            });
 
-        });
-</script>
 <%-include("partials/pfooter")-%>
 
 
