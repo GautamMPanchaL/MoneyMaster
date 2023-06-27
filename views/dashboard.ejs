@@ -1,40 +1,270 @@
 <%-include("partials/pheader")-%>
     <link rel="stylesheet" href="/css/home.css">
-    <h1>SHASHWAT KHARE Dashboard</h1>
-    <h1>Transactions</h1>
-    <div class = "tran-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Transaction Type</th>
-                    <th>Credit Amount (in Rupees)</th>
-                    <th>Debit Amount (in Rupees)</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (var i=0; i < transactions.length; i++) { %>
-                    <tr>
-                        <td>
-                            <%=transactions[i].date %>
-                        </td>
-                        <td>
-                            <%=transactions[i].trimed %>
-                        </td>
-                        <td>
-                            <%=transactions[i].credit %>
-                        </td>
-                        <td>
-                            <%=transactions[i].debit %>
-                        </td>
-                        <td>
-                            <%=transactions[i].description %>
-                        </td>
-                    </tr>
-                    <% } %>
-            </tbody>
-        </table>
+    <link rel="stylesheet" href="/css/dashboad.css">
+    <h1 style="margin-top: 3%;" id="dashtit"></h1>
+
+    <!-- card boxes -->
+
+    <div class="cardBox">
+        <div class="card er">
+            <div class="ncard">
+                <div class="numbers" id="ern">
+                    Rs <%=ear%>
+                </div>
+                <div class="cardName">
+                    Earnings
+                </div>
+            </div>
+            <div class="iconBox">
+                <ion-icon name="cash-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card tr">
+            <div class="ncard">
+                <div class="numbers" id="trn">
+                    <%=transactions.length%>
+                </div>
+                <div class="cardName">
+                    Transactions
+                </div>
+            </div>
+            <div class="iconBox">
+                <ion-icon name="clipboard-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card ex">
+            <div class="ncard">
+                <div class="numbers" id="exn">
+                    Rs <%=exp%>
+                </div>
+                <div class="cardName">
+                    Expenses
+                </div>
+            </div>
+            <div class="iconBox">
+                <ion-icon name="cash-outline"></ion-icon>
+            </div>
+        </div>
     </div>
 
+    <!-- Add charts -->
+
+    <div class="graphBox">
+        <!-- <h2>Text</h2> -->
+        
+        <div class="box">
+            <h2>Expenses</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="box">
+            <h2>Expense vs Earnings</h2>
+            <canvas id="myDaily"></canvas>
+        </div>
+    </div>
+
+    <!-- transaction details -->
+    <div class="details">
+        <div class="recent">
+            <div class="cardHeader">
+                <h2>Recent Transactions</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transaction Type</th>
+                        <th>Credit Amount (in Rupees)</th>
+                        <th>Debit Amount (in Rupees)</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <br>
+                    <% for (var i=0; i < Math.min(transactions.length,30); i++) { %>
+                        <% if(transactions[i].credit==0.00) { %>
+                            <tr class="expn">
+                                <td>
+                                    <%=transactions[i].date %>
+                                </td>
+                                <td>
+                                    <%=transactions[i].trimed %>
+                                </td>
+                                <td>
+                                    <% if(transactions[i].credit==0.00) { %>
+                                        <b>---</b>
+                                        <% } else { %>
+                                            <%=transactions[i].credit %>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <% if(transactions[i].debit==0.00) { %>
+                                        <b>---</b>
+                                        <% } else { %>
+                                            <%=transactions[i].debit %>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <%=transactions[i].description %>
+                                </td>
+                            </tr>
+                        <% } else { %>
+                                <tr class="earn">
+                                    <td>
+                                        <%=transactions[i].date %>
+                                    </td>
+                                    <td>
+                                        <%=transactions[i].trimed %>
+                                    </td>
+                                    <td>
+                                        <% if(transactions[i].credit==0.00) { %>
+                                            <b>---</b>
+                                            <% } else { %>
+                                                <%=transactions[i].credit %>
+                                                    <% } %>
+                                    </td>
+                                    <td>
+                                        <% if(transactions[i].debit==0.00) { %>
+                                            <b>---</b>
+                                            <% } else { %>
+                                                <%=transactions[i].debit %>
+                                                    <% } %>
+                                    </td>
+                                    <td>
+                                        <%=transactions[i].description %>
+                                    </td>
+                                </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        let str4 = '<%=ptransactions%>';
+        let str5 = str4.replace(/&#34;/gi, '\"');
+        const tobj = JSON.parse(str5);
+        // console.log(tobj.length);
+        let m = new Map();
+        let n = new Map();
+        for(let i = 0;i<tobj.length;i++){
+            if(m.has(tobj[i].trimed) && tobj[i].debit > 0){
+                m.set(tobj[i].trimed, parseInt(m.get(tobj[i].trimed) + tobj[i].debit));
+            }
+            else if(tobj[i].debit > 0){
+                m.set(tobj[i].trimed, tobj[i].debit);
+                // console.log(tobj[i].trimed);
+            }
+            else{
+                if (n.has(tobj[i].trimed)) {
+                    n.set(tobj[i].trimed, parseInt(n.get(tobj[i].trimed) + tobj[i].credit));
+                }
+                else{
+                    n.set(tobj[i].trimed, tobj[i].credit);
+                    // console.log(tobj[i].trimed);
+                }
+            }
+        }
+        let exlta = [];
+        let exdta = [];
+        let erlta = [];
+        let erdta = [];
+        m.forEach((values, keys) => {
+            exlta.push(keys);
+            exdta.push(values);
+        })
+        n.forEach((values, keys) => {
+            erlta.push(keys);
+            erdta.push(values);
+        })
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        const firstDay = yyyy + '-' + mm + '-' + "01";
+        const currDay  = yyyy + '-' + mm + '-' + dd;
+        console.log(firstDay+currDay);
+        let mdays = [];
+        let tempd,tdx;
+        let exdtaday = [];
+        let erdtaday = [];
+
+        for(let i = 1;i<=dd;i++){
+            tdx = i;
+            exdtaday.push(0);
+            erdtaday.push(0);
+            if (i < 10) tdx = '0' + i;
+            tempd = yyyy + '-' + mm + '-' + tdx;
+            mdays.push(tempd);
+            // console.log(" : "+tempd);
+            for (let j = 0; j < tobj.length; j++) {
+                // console.log(tobj[j].date);
+                if(tobj[j].date == tempd){
+                    if(tobj[j].debit>0){
+                        exdtaday[i-1] += parseInt(tobj[j].debit);
+                    }
+                    else{
+                        erdtaday[i-1] += parseInt(tobj[j].credit);
+                    }
+                }
+            }
+        }
+
+        // console.log(exdtaday);
+        // console.log(erdtaday);
+        
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+
+                labels: exlta,
+                datasets: [{
+                    label: 'Money Spent',
+                    data: exdta,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+                // },
+                responsive : true,
+            }
+        });
+        const mixedChart = document.getElementById('myDaily');
+        new Chart(mixedChart, {
+                data: {
+                    datasets: [{
+                        type: 'bar',
+                        label: ["Expenses"],
+                        borderColor: '#FF6384',
+                        backgroundColor: '#ce1313',
+                        data: exdtaday,
+                    }, {
+                        type: 'bar',
+                        label: ["Earnings"],
+                        borderColor: '#9BD0F5',
+                        backgroundColor: '#07ad47',
+                        data: erdtaday,
+                    }],
+                    labels: mdays,
+                },
+                options: {
+                // scales: {
+                //     y: {
+                //         beginAtZero: true
+                //     }
+                // },
+                responsive: true,
+                }
+            });
+
+
+    </script>
     <%-include("partials/pfooter")-%>
+    <script src="/javascript/dashboard.js"></script>

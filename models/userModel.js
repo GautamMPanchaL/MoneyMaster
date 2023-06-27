@@ -23,11 +23,6 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
 
-    isVerifiend : {
-        type: Boolean,
-        default: false
-    },
-
     transactions: [] 
 });
 

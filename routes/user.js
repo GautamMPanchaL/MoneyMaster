@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 app.use(cookieParser());
 
-const {login , signup, logout} = require("../controllers/auth");
+const {login , signup ,logout} = require("../controllers/auth");
 const {insertnew, profile, filterTransaction, dashboard, newtransaction, filterTransactionpage} = require("../controllers/insertnew");
 const {isAuthentic} = require("../middlewares/auht");
 
@@ -27,8 +27,6 @@ router.get("/signup",(req,res)=>{
     res.render('signup');
 });
 
-router.post("/logout", logout);
-
 router.post("/signup",signup);
 
 // profile page route
@@ -48,5 +46,7 @@ router.post("/dashboard/insertnew",isAuthentic, insertnew);
 router.get("/dashboard/filterTransaction",isAuthentic,  filterTransaction);
 
 router.post("/dashboard/filterTransaction",isAuthentic,  filterTransaction);
+
+router.post("/logout", logout);
 
 module.exports = router;

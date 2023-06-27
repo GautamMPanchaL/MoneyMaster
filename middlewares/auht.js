@@ -39,5 +39,3 @@ exports.isAuthentic = (req, res, next)=>{
     }
 }
 
-
-
