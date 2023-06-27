@@ -11,9 +11,9 @@
 <!-- common-javascripts -->
 
 <script>
-    const str = '<%=puser%>';
+    let str = '<%=puser%>';
     //console.log(str);
-    const str2 = str.replace(/&#34;/gi, '\"');
+    let str2 = str.replace(/&#34;/gi, '\"');
     // console.log(str2);
     const uobj = JSON.parse(str2);
     console.log(uobj);
