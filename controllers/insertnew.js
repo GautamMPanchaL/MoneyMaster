@@ -63,6 +63,11 @@ exports.profile = async (req, res) => {
         message: 'User not found',
       });
     }
+    if(user.transactions.length>1){
+        user.transactions = user.transactions.sort(function(x,y){
+            return new Date(y.date)-new Date(x.date);
+        });
+      }
     console.log("in profile");
     console.log(user);
 
@@ -96,9 +101,45 @@ exports.dashboard = async (req, res) => {
     }
 
     let x = JSON.stringify(user);
+    console.log("Inside dashboard");
     console.log(x);
+    let arr = user.transactions;
+    
+    // added sorting and filtering for this month
 
-   res.render('dashboard', { puser: user, transactions: user.transactions });
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    const firstDay = yyyy + '-' + mm + '-' + "01";
+    console.log(firstDay);
+    let farr = user.transactions;
+    console.log(farr);
+    if(user.transactions.length>0){
+      farr = arr.sort(function (x,y){
+          return new Date(y.date)-new Date(x.date);
+        });
+      farr = farr.filter(function (x){
+        return x.date>=firstDay;
+      });
+    }
+    let exp = 0,ear = 0;
+    for(var i = 0;i<farr.length;i++){
+      exp += parseInt(farr[i].debit);
+      ear += parseInt(farr[i].credit);
+    }
+    console.log(farr);
+    console.log(exp);
+    console.log(ear);
+
+    let tp = JSON.stringify(farr);
+    // console.log(tp);
+    // console.log("dono");
+    // end 
+
+    res.render('dashboard', { puser: x, transactions: farr,exp : exp,ear : ear,ptransactions : tp});
     return res.status(200);
   } 
   catch (error) {
@@ -123,6 +164,12 @@ exports.filterTransaction = async (req, res) => {
           message: 'User not found',
         });
       }
+      if(user.transactions.length>1){
+        user.transactions = user.transactions.sort(function(x,y){
+            return new Date(y.date)-new Date(x.date);
+        });
+      }
+
       let x = JSON.stringify(user); 
       console.log(x);
       if (req.body.hasOwnProperty('type')) {
@@ -139,17 +186,31 @@ exports.filterTransaction = async (req, res) => {
           return transactionDate >= startDate && transactionDate <= endDate;
         });
       } else {
-        filteredTransactions = user.transactions.filter(transaction => {
+          filteredTransactions = user.transactions.filter(transaction => {
           const transactionDate = new Date(transaction.date);
           return transaction.trimed === type &&
             transactionDate >= startDate &&
             transactionDate <= endDate;
+          });
+        }
+      const optionsArray = user.transactions.map(transaction => transaction.trimed);
+    const uniqueOptionsArray = [...new Set(optionsArray)];
+      let farr = filteredTransactions;
+      farr = farr.sort(function (x,y){
+          return new Date(y.date)-new Date(x.date);
         });
-}
-const optionsArray = user.transactions.map(transaction => transaction.trimed);
-const uniqueOptionsArray = [...new Set(optionsArray)];
-
-res.render("filterTransaction", { puser: x, transactions: filteredTransactions, uniqueOptionsArray:uniqueOptionsArray});
+        let exp = 0,ear = 0;
+    for(var i = 0;i<farr.length;i++){
+      exp += parseInt(farr[i].debit);
+      ear += parseInt(farr[i].credit);
+    }
+    let tp = JSON.stringify(farr);
+    // console.log("Happy");
+      let sdt = startDate.toISOString().substring(0,10);
+      let edt = endDate.toISOString().substring(0,10);
+      // console.log(startDate.toISOString().substring(0,10));
+      // console.log(endDate.toISOString().substring(0,10));
+      res.render("filterTransaction", { puser: x, transactions: farr, uniqueOptionsArray:uniqueOptionsArray,exp : exp,ear : ear,ptransactions : tp,startDate : sdt,endDate : edt});
 
         return res.status(200);
       }
@@ -158,7 +219,17 @@ res.render("filterTransaction", { puser: x, transactions: filteredTransactions, 
     // res.redirect("/dashboard/filterTransaction");
     const optionsArray = user.transactions.map(transaction => transaction.trimed);
     const uniqueOptionsArray = [...new Set(optionsArray)];
-    res.render("filterTransaction", {puser: x, transactions:user.transactions, uniqueOptionsArray: uniqueOptionsArray});
+    let farr = user.transactions;
+    farr = farr.sort(function (x,y){
+          return new Date(y.date)-new Date(x.date);
+        });
+      let exp = 0,ear = 0;
+    for(var i = 0;i<farr.length;i++){
+      exp += parseInt(farr[i].debit);
+      ear += parseInt(farr[i].credit);
+    }
+    let tp = JSON.stringify(farr);
+    res.render("filterTransaction", {puser: x, transactions:farr, uniqueOptionsArray: uniqueOptionsArray,exp : exp,ear : ear,ptransactions : tp,startDate : undefined,endDate : undefined});
     // return res.status(200).json({
     //   success: true,
     //   message: 'Filtered transactions',

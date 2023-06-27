@@ -1,0 +1,35 @@
+form{
+    text-align: center;
+    padding: 3%;
+    position: relative;
+    /* display: flex; */
+    width: 60%;
+    /* grid-template-columns: 2,1fr; */
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+    /* background: var(--green); */
+    /* background: var(--red); */
+}
+
+.lform{
+    width: 25%;
+    padding: 2%;
+    font-weight: 600;
+}
+
+.rform{
+    /* padding: 2%; */
+    border-radius: 20px;
+    width: 25%;
+}
+
+.cre{
+    background: var(--green);
+}
+
+.deb{
+    background: var(--red);
+}
