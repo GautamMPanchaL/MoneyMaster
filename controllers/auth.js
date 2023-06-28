@@ -78,10 +78,11 @@ exports.login = async (req,res) => {
     try{   
          const {email, password} = req.body;
         if(!email || !password){
-            res.status(400).json({
-                success: false,
-                message: "provide all fields"
-            });
+            return res.render("error", {error:400, field: "provide all fields"});
+            // res.status(400).json({
+            //     success: false,
+            //     message: "provide all fields"
+            // });
         }
         // check if user exists
         let user = await User.findOne({email});;

@@ -1,3 +1,14 @@
+.errorn{
+    position: relative;
+    width: 70%;
+    margin: 0 15%;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    color: rgb(8, 8, 8);
+    background: wheat;
+}
+
 body{
     background-color:#D84C7E;
     display: flex;

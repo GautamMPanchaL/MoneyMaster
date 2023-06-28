@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const path = require('path');
+const User = require("../models/userModel");
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 
@@ -11,10 +12,12 @@ exports.isAuthentic = (req, res, next)=>{
         // extract jwt token
         const token =  req.cookies.MoneyMaster;
         if(!token){
-            return res.status(401).json({
-                success:false,
-                message: "Token missing"
-            });
+            res.render("error", {error:401, field:"Token missing"});
+            return res.status(401);
+            // return res.status(401).json({
+            //     success:false,
+            //     message: "Token missing"
+            // });
         }
         
         try{
@@ -24,18 +27,22 @@ exports.isAuthentic = (req, res, next)=>{
             req.user = decoded;
         }
         catch(err){
-            return res.status(401).json({
-                success:false,
-                message: "Invalid token"
-            });
+            res.render("error", {error:401, field:"Invalid token"});
+            return res.status(401);
+            // return res.status(401).json({
+            //     success:false,
+            //     message: "Invalid token"
+            // });
         }
         next();
     }
     catch(err){
-        return res.status(401).json({
-                success:false,
-                message: "something went wrong.."
-            });
+        res.render("error", {error:401, field:"something went wrong.."});
+            return res.status(401);
+        // return res.status(401).json({
+        //         success:false,
+        //         message: "something went wrong.."
+        //     });
     }
 }
 
