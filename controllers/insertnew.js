@@ -21,10 +21,8 @@ exports.insertnew = async (req, res) => {
     // finding user
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found',
-      });
+      res.render("error", {error:400, field:"User Not Found"});
+            return res.status(400);
     }
     // Add the transaction to the user's transactions array
     user.transactions.unshift({ date, credit, debit, description, trimed});
@@ -39,10 +37,8 @@ exports.insertnew = async (req, res) => {
   } 
   catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to insert data in transactions array',
-    });
+        res.render("error", {error:500, field:"Fail to insert data"});
+        return res.status(500);
   }
 };
 
@@ -58,10 +54,8 @@ exports.profile = async (req, res) => {
     // finding user
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found',
-      });
+      res.render("error", {error:400, field:"User Not Found"});
+            return res.status(400);
     }
     if(user.transactions.length>1){
         user.transactions = user.transactions.sort(function(x,y){
@@ -79,10 +73,8 @@ exports.profile = async (req, res) => {
   } 
   catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch the profile data',
-    });
+    res.render("error", {error:500, field:"Internal Server Error, failed to fetch data"});
+            return res.status(500);
   }
 };
 
@@ -94,10 +86,8 @@ exports.dashboard = async (req, res) => {
     // finding user
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found',
-      });
+      res.render("error", {error:404, field:"User not found"});
+            return res.status(404);
     }
 
     let x = JSON.stringify(user);
@@ -144,10 +134,8 @@ exports.dashboard = async (req, res) => {
   } 
   catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch data',
-    });
+    res.render("error", {error:500, field:"Internal Server Error, fail to fetch data"});
+            return res.status(500);
   }
 
 };
@@ -159,10 +147,8 @@ exports.filterTransaction = async (req, res) => {
       // finding user
       const user = await User.findById(userId);
       if (!user) {
-        return res.status(404).json({
-          success: false,
-          message: 'User not found',
-        });
+        res.render("error", {error:404, field:"User not found"});
+            return res.status(404);
       }
       if(user.transactions.length>1){
         user.transactions = user.transactions.sort(function(x,y){
@@ -238,10 +224,8 @@ exports.filterTransaction = async (req, res) => {
   } 
   catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch data',
-    });
+    res.render("error", {error:500, field:"Internal Server Error, fail to fetch data"});
+    return res.status(500);
   }
 };
 
@@ -257,10 +241,8 @@ exports.newtransaction = async (req, res) => {
     // finding user
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found',
-      });
+      res.render("error", {error:404, field:"User not found"});
+            return res.status(404);
     }
     console.log("on transaction page");
     console.log(user);
@@ -273,9 +255,7 @@ exports.newtransaction = async (req, res) => {
   }
   catch(error){
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch data',
-    });
+    res.render("error", {error:500, field:"Internal Server Error, fail to fetch data"});
+            return res.status(500);
   }
 }

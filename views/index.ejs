@@ -114,7 +114,7 @@
             </div>
         </form> -->
 
-        <form method="post" action="/">
+        <form onsubmit="copyToGmail()">
             <div class="container">
                 <img style="margin: 5%;" src="https://blog.injixo.com/hubfs/How-to-boost-Employee-Engagement-01.png" alt="">
                 <div class="formgrou">
@@ -132,11 +132,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-floating" style="margin-top: 3%;">
+                    <!-- <div class="form-floating" style="margin-top: 3%;">
                         <label for="email">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
                             value="sanidhya@example.com">
-                    </div>
+                    </div> -->
                     <div class="form-floating" style="margin-top: 3%;">
                         <label for="desc">What would you Like to Discuss</label>
                         <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"
@@ -150,6 +150,18 @@
             </div>
         </form>
     </section>
+
+    <script>
+            function copyToGmail() {
+                var to = "gautampanchal977@gmail.com";
+                var subject = document.getElementById("name").value;
+                var body = document.getElementById("phone").value + "\n" + document.getElementById("desc").value;
+
+                var mailtoLink = "mailto:" + encodeURIComponent(to) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+                window.location.href = mailtoLink;
+            }
+    </script>
     <script type="text/javascript">
         $('.myslick').slick({
                 slidesToShow: 4,

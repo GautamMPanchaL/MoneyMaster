@@ -19,10 +19,9 @@ exports.signup = async (req, res)=> {
         const existingUser = await User.findOne({email});
         
         if(existingUser){
-            return res.status(400).json({
-                success: false,
-                message: 'User already Exists',
-            });
+
+            res.render("error", {error:400, field: "User Already Exist"});
+            return res.status(400);
         }
         
         // password hashing 
@@ -34,10 +33,8 @@ exports.signup = async (req, res)=> {
             console.log(hashedPassword);
         }
         catch(err){
-            return res.status(500).json({
-                success:false,
-                message:"Error in hashing"
-            });
+            res.render("error", {error:500, field:"Internal Server Error"});
+            return res.status(500);
         }
 
         // create a new user
@@ -69,10 +66,8 @@ exports.signup = async (req, res)=> {
     }
     catch(err){
         
-        return res.status(500).json({
-            success:false,
-            message:"Something went wrong....."
-        });
+        res.render("error", {error:500, field:"Internal Server Error"});
+            return res.status(500);
     }
 }
 
@@ -92,10 +87,9 @@ exports.login = async (req,res) => {
         let user = await User.findOne({email});;
         //if not found
         if(!user){
-            return res.status(401).json({
-                success:false,
-                message: "user does not exist"
-            })
+            
+            return res.render("error", {error:400, field: "User Does not exist Exist"});
+            return res.status(400);
         }
         // creating a payload
         let payload = {
@@ -120,19 +114,15 @@ exports.login = async (req,res) => {
             res.redirect("/user/profile");
         }
         else{
-            return res.status(403).json({
-                success:false,
-                message: "password does not match"
-            })
+            res.render("error", {error:403, field:"Password or Email is incorrect"});
+            return res.status(403);
         }
 
     }
     catch(err){
         console.log(err);
-        return res.status(500).json({
-            success:false,
-            message: "login failure"
-        });
+        res.render("error", {error:500, field:"Internal Server Error"});
+        return res.status(500);
     }
 }
 module.exports.logout = (req, res) => {
