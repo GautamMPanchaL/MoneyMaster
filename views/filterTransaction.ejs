@@ -176,18 +176,18 @@
         let n = new Map();
         for (let i = 0; i < tobj.length; i++) {
             if (m.has(tobj[i].trimed) && tobj[i].debit > 0) {
-                m.set(tobj[i].trimed, (m.get(tobj[i].trimed) + tobj[i].debit));
+                m.set(tobj[i].trimed, parseInt(parseInt(m.get(tobj[i].trimed)) + parseInt(tobj[i].debit)));
             }
             else if (tobj[i].debit > 0) {
-                m.set(tobj[i].trimed, tobj[i].debit);
+                m.set(tobj[i].trimed, parseInt(tobj[i].debit));
                 // console.log(tobj[i].trimed);
             }
             else {
                 if (n.has(tobj[i].trimed)) {
-                    n.set(tobj[i].trimed, (n.get(tobj[i].trimed) + tobj[i].credit));
+                    n.set(tobj[i].trimed, parseInt(parseInt(n.get(tobj[i].trimed)) + parseInt(tobj[i].credit)));
                 }
                 else {
-                    n.set(tobj[i].trimed, tobj[i].credit);
+                    n.set(tobj[i].trimed, parseInt(tobj[i].credit));
                     // console.log(tobj[i].trimed);
                 }
             }
