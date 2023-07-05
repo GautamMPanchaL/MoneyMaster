@@ -118,6 +118,7 @@
 .input-box input:focus~ label,
 .input-box input:valid~ label{
     top: -10%;
+    letter-spacing: 0.1em;
 }
 
 .input-box input:valid~label{
