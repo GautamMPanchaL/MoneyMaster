@@ -73,3 +73,24 @@
 .cardBox .card:hover .cardName {
     color: var(--white);
 }
+
+.graphBox {
+    position: relative;
+    width: 100%;
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-gap: 30px; */
+    margin-left: 25%;
+    margin-top: 2%;
+}
+
+.graphBox .box {
+    position: relative;
+    background: white;
+    padding: 2%;
+    width: 100%;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    min-height: 200px;
+}

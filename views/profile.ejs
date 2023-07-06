@@ -2,6 +2,9 @@
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/profile.css">
     <!-- <h1>SHASHWAT KHARE Profile</h1> -->
+    <div>
+        <h1>Profile</h1>
+    </div>
     <div class="cardBox">
         <div class="card tr">
             <div class="pcard">
@@ -66,6 +69,13 @@
             </div>
         </div>
     </div>
+    <div class="graphBox">
+        <!-- <h2>Text</h2> -->
+        <div class="box">
+            <h2>Transactions</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
     <%-include("partials/pfooter")-%>
     <script>
         // console.log(uobj);
@@ -85,4 +95,27 @@
             $("#email").html("<h3>Email : " + uobj.email + "</h3>");
             $("#balance").html("<h3>Balance : Rs " + uobj.money + "</h3>");
         });
+        let lax = ["Expences","Earnings"];
+        let dta = [exp,erp];
+        const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+
+                    labels: lax,
+                    datasets: [{
+                        label: 'Transactions',
+                        data: dta,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    // scales: {
+                    //     y: {
+                    //         beginAtZero: true
+                    //     }
+                    // },
+                    responsive: true,
+                }
+            });
     </script>

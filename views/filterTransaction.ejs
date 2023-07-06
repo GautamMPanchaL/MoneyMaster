@@ -98,11 +98,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Transaction Type</th>
-                            <th>Credit Amount (in Rupees)</th>
-                            <th>Debit Amount (in Rupees)</th>
-                            <th>Description</th>
+                            <th style="padding-bottom: 30px;">Date</th>
+                            <th style="padding-bottom: 30px;">Transaction Type</th>
+                            <th style="padding-bottom: 30px;">Credit Amount (in Rupees)</th>
+                            <th style="padding-bottom: 30px;">Debit Amount (in Rupees)</th>
+                            <th style="padding-bottom: 30px;">Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,7 +110,7 @@
                         <% for (var i=0; i < Math.min(transactions.length,30); i++) { %>
                             <% if(transactions[i].credit==0.00) { %>
                                 <tr class="expn">
-                                    <td>
+                                    <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
                                         <%=transactions[i].date %>
                                     </td>
                                     <td>
@@ -130,13 +130,13 @@
                                                 <%=transactions[i].debit %>
                                                     <% } %>
                                     </td>
-                                    <td>
+                                    <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
                                         <%=transactions[i].description %>
                                     </td>
                                 </tr>
                                 <% } else { %>
                                     <tr class="earn">
-                                        <td>
+                                        <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
                                             <%=transactions[i].date %>
                                         </td>
                                         <td>
@@ -156,7 +156,7 @@
                                                     <%=transactions[i].debit %>
                                                         <% } %>
                                         </td>
-                                        <td>
+                                        <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
                                             <%=transactions[i].description %>
                                         </td>
                                     </tr>
