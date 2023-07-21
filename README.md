@@ -3,7 +3,6 @@
   So, we can improve our daily budget.
 * Upon signing up and creating an account, users gain access to a user-friendly interface where they can effortlessly set and manage their expenses. Money Master 
   allows users to add new transaction, assign category and descriptions to them.
-* The application also provides the flexibility to update and modify tasks as needed.
 * Users can view a graphical view of their expenses and see their category wise expenses.
 * Money Master provied functionality to filter the transaction category wise.
 
